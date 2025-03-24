@@ -11,14 +11,14 @@ body {
 }
 .traductor {
   text-align: right; /* Alinea el texto a la izquierda */
-  font-size: 0.9em; /* Reduce el tamaño de la letra (ajusta según necesidad) */
+  font-size: 1.1em; /* Reduce el tamaño de la letra (ajusta según necesidad) */
   
   color: rgb(14, 13, 13); /* Mantiene el color original */
 }
 
 .epigrafe {
   text-align: right; /* Alinea el texto a la izquierda */
-  font-size: 0.9em; /* Reduce el tamaño de la letra (ajusta según necesidad) */
+  font-size: 0.8em; /* Reduce el tamaño de la letra (ajusta según necesidad) */
   font-style: italic; /* Opcional: cursiva para resaltar el epígrafe */
   color: rgb(14, 13, 13); /* Mantiene el color original */
 }
