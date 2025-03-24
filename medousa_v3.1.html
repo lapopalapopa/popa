@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background: #ffe4c1;
+      color: rgb(45, 63, 49);
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    #poem-container {
+      position: relative;
+      width: 90vw;
+      height: 90vh;
+      overflow: hidden;
+      padding: 2em;
+      overflow-y: auto; /* Allow vertical scrolling */
+      scroll-behavior: smooth; /* Optional: smooth scrolling */
+    }
+    .verse-line {
+      position: relative;
+      margin: 0.5em 0;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s, transform 0.5s;
+      white-space: pre;
+    }
+    .verse-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .word {
+      display: inline-block;
+      margin-right: 0.5em;
+    }
+    .char {
+      display: inline-block;
+      animation: wave 2s infinite ease-in-out;
+    }
+    .pending {
+      color: #ffe4c1; /* Same as background color */
+      visibility: hidden; /* Add this to completely hide pending words */
+    }
+    @keyframes wave {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
+    }
+  </style>
+</head>
+<body>
+  <div id="poem-container"></div>
+
+  <script>
+    const poem = `Yo y yo
+las cabellas de médousa
+a ambas bocas de la cueva
+una pro-tesis
+de la ligereza de piel
+Yo y yo unidas
+por la est hadística
+tech no-lógica
+hacida desde antes
+atrás de ti
+delante de ti
+antes de ti empo
+toda escribiente una algoritma
+toda rima una C O N SPiracION
+acción simb-ólica
+pro-tesis literaria
+hado superior hacido legible
+lenght-uaje MEDia 
+usa performance
+usa transformance
+hacer imagen del
+fin del mundo >
+hacer imagen del
+paz hado
+hacido olvidado
+toda escribiente una angustia
+toda furia una e-cuacION
+Yo y yo
+emosido abandonadas
+ya nhay viajes hasta
+los límites de la magia
+donde ojos no poseen los ancestros
+las que no se dejan ver
+en pro-gresión lineal
+serán decapitadas
+toda escribiente una NU M E R O
+toda erosu na-adición
+Yo y yo
+pose hemos una sueña
+hacer el hábito deadorar
+por no-grafiar loe vidente
+brot-harán espigas
+de las hidras
+delacidras
+decapitadas`;
+
+    const verses = poem.split('\n');
+    const container = document.getElementById('poem-container');
+    const chars = '_-~~~=:.°¬°|¬<>░▒▒═¨'
+
+    function createVerseLine(verse) {
+      const line = document.createElement('div')
+      line.className = 'verse-line';
+      
+      const words = verse.split(' ');
+      
+      words.forEach((word, index) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'word pending';
+        
+        [...word].forEach((char, charIndex) => {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.style.animationDelay = `${charIndex * 0.0}s`;
+          span.textContent = char;
+          wordSpan.appendChild(span);
+        });
+        
+        line.appendChild(wordSpan);
+      });
+      
+      return line;
+    }
+
+    function generateRandomText(length) {
+      return Array(length).fill()
+        .map(() => chars[Math.floor(Math.random() * chars.length)])
+        .join('');
+    }
+
+    async function scrambleWord(wordElement, finalText) {
+      return new Promise(resolve => {
+        let iterations = 0;
+        const maxIterations = 15 + Math.floor(Math.random() * 10);
+        const spans = wordElement.getElementsByClassName('char');
+        
+        wordElement.classList.remove('pending');
+        
+        [...spans].forEach(span => {
+      span.textContent = chars[Math.floor(Math.random() * chars.length)];
+    });
+    
+    const interval = setInterval(() => {
+      const randomText = generateRandomText(finalText.length);
+      
+      [...randomText].forEach((char, index) => {
+        spans[index].textContent = char;
+      });
+          
+          iterations++;
+          
+          if (iterations >= maxIterations) {
+            clearInterval(interval);
+            [...finalText].forEach((char, index) => {
+              spans[index].textContent = char;
+            });
+            resolve();
+          }
+        }, 50);
+      });
+    }
+
+    async function displayVerses() {
+      for (let i = 0; i < verses.length; i++) {
+        const line = createVerseLine(verses[i]);
+        container.appendChild(line);
+        
+        setTimeout(() => line.classList.add('visible'), autoScroll(), 50);
+        
+        const words = line.getElementsByClassName('word');
+        const originalWords = verses[i].split(' ');
+        
+        for (let j = 0; j < words.length; j++) {
+          await scrambleWord(words[j], originalWords[j]);
+          await new Promise(resolve => setTimeout(resolve, 50));
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, 300));
+      }
+    }
+
+    // Start the animation
+    function autoScroll() {
+  const container = document.getElementById('poem-container');
+  container.scrollTop = container.scrollHeight;
+}
+    displayVerses();
+
+    // Reset and replay
+    setInterval(() => {
+      container.innerHTML = '';
+      displayVerses();
+    }, 190000);
+  </script>
+</body>
+</html>
