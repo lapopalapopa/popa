@@ -22,6 +22,8 @@ a:hover {
 h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: "DotGothic16";
   color: #962539;
+  white-space: nowrap; /* Evita el salto de línea */
+  overflow: hidden;
 }
 
  h3, h4, h5, h6, .font-heading {
