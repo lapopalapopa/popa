@@ -19,7 +19,7 @@ a:hover {
   color: red;
 }
 
-h1, h2, h3, h4, h5, h6, .font-heading {
+h1, h2, h4, h5, h6, .font-heading {
   font-family: "DotGothic16";
   color: #962539;
   grid-column: span 2; /* Hace que el `h2` ocupe ambas columnas */
