@@ -369,7 +369,7 @@ h1, h2, h4, h5, h6, .font-heading {
 /* Custom Navmenu */
 .custom-navmenu {
   background: #0d1e2d;
-  background:#000;
+  
 }
 
 .custom-navmenu .custom-menu, .custom-navmenu .custom-menu li {
@@ -387,7 +387,7 @@ h1, h2, h4, h5, h6, .font-heading {
 .custom-navmenu .custom-menu li a {
   
   padding: 10px 0 !important;
-  color:#0a0000;
+  color:#2599f2;
   font-family: DotGothic16;
 }
 
